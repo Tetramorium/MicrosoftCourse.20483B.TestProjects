@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 
 namespace Animal
 {
-    public abstract class Entity
+    public abstract class Entity : IComparable<Entity>
     {
         public string Name { get; set; }
         private IGreetingBehaviour GreetingBehaviour;
@@ -16,6 +17,25 @@ namespace Animal
         public void IntroduceHumanSubject()
         {
             Console.WriteLine(string.Format("{0} : {1}", this.Name, this.GreetingBehaviour.Greet()));
+        }
+
+        public int CompareTo(Entity other)
+        {
+            switch (other)
+            {
+                case Cat c:
+                    if (c.GetType() == this.GetType())
+                        return 0;
+                    else
+                        return -1;
+                case Dog d:
+                    if (d.GetType() == this.GetType())
+                        return 1;
+                    else
+                        return -1;
+            }
+
+            return 0;
         }
     }
 
