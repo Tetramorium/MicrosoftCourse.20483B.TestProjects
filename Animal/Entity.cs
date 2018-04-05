@@ -27,15 +27,25 @@ namespace Animal
                     if (c.GetType() == this.GetType())
                         return 0;
                     else
-                        return -1;
+                    {
+                        if (this is Dog)
+                            return 1;
+                        else
+                            return -1;
+                    }
                 case Dog d:
                     if (d.GetType() == this.GetType())
-                        return 1;
+                        return 0;
                     else
-                        return -1;
+                    {
+                        if (this is Cat)
+                            return -1;
+                        else
+                            return 1;
+                    }
+                default:
+                    return -1;
             }
-
-            return 0;
         }
     }
 
@@ -60,6 +70,14 @@ namespace Animal
         }
     }
 
+    public class GreetFlyAway : IGreetingBehaviour
+    {
+        public string Greet()
+        {
+            return "Fly away! Fly away!";
+        }
+    }
+
     public class Dog : Entity
     {
         public Dog(string _Name, IGreetingBehaviour _GreetingBehaviour) : base(_Name, _GreetingBehaviour)
@@ -70,6 +88,13 @@ namespace Animal
     public class Cat : Entity
     {
         public Cat(string _Name, IGreetingBehaviour _GreetingBehaviour) : base(_Name, _GreetingBehaviour)
+        {
+        }
+    }
+
+    public class Bird : Entity
+    {
+        public Bird(string _Name, IGreetingBehaviour _GreetingBehaviour) : base(_Name, _GreetingBehaviour)
         {
         }
     }

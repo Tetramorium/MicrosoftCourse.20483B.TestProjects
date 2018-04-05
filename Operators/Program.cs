@@ -39,23 +39,38 @@ namespace TestProject
 
             List<Entity> entities = new List<Entity>();
 
-            Cat c1 = new Cat("Milou c1", new GreetIgnore());
-            Cat c2 = new Cat("Sam c2", new GreetIgnore());
-            Cat c3 = new Cat("Bram c3", new GreetIgnore());
-            Cat c4 = new Cat("Milou c4", new GreetIgnore());
+            Cat c1 = new Cat("c1 Milou", new GreetIgnore());
+            Cat c2 = new Cat("c2 Sam", new GreetIgnore());
+            Cat c3 = new Cat("c3 Bram", new GreetIgnore());
+            Cat c4 = new Cat("c4 Milou", new GreetIgnore());
 
-            Dog d1 = new Dog("Bob d1", new GreetWelcome());
-            Dog d2 = new Dog("Max d2", new GreetWelcome());
-            Dog d3 = new Dog("Boris d3", new GreetWelcome());
-            Dog d4 = new Dog("Rex d4", new GreetWelcome());
+            Dog d1 = new Dog("d1 Bob", new GreetWelcome());
+            Dog d2 = new Dog("d2 Max", new GreetWelcome());
+            Dog d3 = new Dog("d3 Boris", new GreetWelcome());
+            Dog d4 = new Dog("d4 Rex", new GreetWelcome());
+
+            Bird b1 = new Bird("b1 Twitter", new GreetFlyAway());
+            Bird b2 = new Bird("b2 Birb", new GreetFlyAway());
+            Bird b3 = new Bird("b3 Genji", new GreetFlyAway());
+            Bird b4 = new Bird("b4 Birdperson", new GreetFlyAway());
+
+            entities.Add(b1);
 
             entities.Add(c1);
             entities.Add(d1);
+
+            entities.Add(b4);
+
             entities.Add(c2);
             entities.Add(d2);
 
+            entities.Add(b2);
+
             entities.Add(d3);
             entities.Add(d4);
+
+            entities.Add(b3);
+
             entities.Add(c3);
             entities.Add(c4);
 
