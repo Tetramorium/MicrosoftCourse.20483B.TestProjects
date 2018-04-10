@@ -30,8 +30,17 @@ namespace TestProject
             Print(c, nameof(c));
 
             Entity e = c as Entity;
-            e.IntroduceHumanSubject();
             Print(e, nameof(e));
+
+            e.IntroduceHumanSubject();
+
+            // Changing behaviour
+
+            Console.WriteLine("Changing behaviour!");
+
+            e.GreetingBehaviour = new GreetWelcome();
+
+            e.IntroduceHumanSubject();
 
             feed(e);
 

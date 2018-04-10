@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 
+// Strategy Pattern
+// https://www.codeproject.com/Articles/455228/Design-Patterns-of-Behavioral-Design-Patterns#Strategy
+
 namespace Animal
 {
     public abstract class Entity : IComparable<Entity>
     {
         public string Name { get; set; }
-        private IGreetingBehaviour GreetingBehaviour;
+        public IGreetingBehaviour GreetingBehaviour;
 
         public Entity(string _Name, IGreetingBehaviour _GreetingBehaviour)
         {
