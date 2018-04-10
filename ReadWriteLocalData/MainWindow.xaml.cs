@@ -38,7 +38,29 @@ namespace ReadWriteLocalData
 
         private void bt_LogComment_Click(object sender, RoutedEventArgs e)
         {
-            ldc.Write(new Log("Test"));
+            string str = this.tb_LogText.Text;
+
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                ldc.Write(new Log(str));
+                this.tb_LogText.Clear();
+                ScrollListBoxToBottom(this.lb_Logs);
+            }
+            else
+                MessageBox.Show("Please enter some text for the log", "Log can't be empty", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        // ListBox Scroll to end automatically
+        // https://stackoverflow.com/a/28433208
+
+        private void ScrollListBoxToBottom(ListBox _lb)
+        {
+            if (VisualTreeHelper.GetChildrenCount(_lb) > 0)
+            {
+                Border border = (Border)VisualTreeHelper.GetChild(_lb, 0);
+                ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                scrollViewer.ScrollToBottom();
+            }
         }
     }
 }

@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:ReadWriteLocalData"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="273.5">
+        Title="MainWindow" Height="450" Width="527">
     <Grid>
-        <Button x:Name="bt_LogComment" Content="Log Comment" HorizontalAlignment="Left" Margin="73,389,0,0" VerticalAlignment="Top" Width="100" Click="bt_LogComment_Click"/>
-        <ListBox x:Name="lb_Logs" HorizontalAlignment="Left" Height="374" Margin="10,10,0,0" VerticalAlignment="Top" Width="244" ItemsSource="{Binding Logs, diag:PresentationTraceSources.TraceLevel=High}" ItemTemplate="{StaticResource listBoxTemplate}" />
+        <Button x:Name="bt_LogComment" Content="Log Comment" HorizontalAlignment="Left" Margin="409,389,0,0" VerticalAlignment="Top" Width="100" Click="bt_LogComment_Click"/>
+        <ListBox x:Name="lb_Logs" HorizontalAlignment="Left" Height="374" Margin="10,10,0,0" VerticalAlignment="Top" Width="499" ItemsSource="{Binding Logs, diag:PresentationTraceSources.TraceLevel=High}" ItemTemplate="{StaticResource listBoxTemplate}" />
+        <TextBox x:Name="tb_LogText" HorizontalAlignment="Left" Height="23" Margin="10,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="394"/>
     </Grid>
 </Window>
