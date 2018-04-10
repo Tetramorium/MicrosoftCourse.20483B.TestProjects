@@ -19,6 +19,7 @@ namespace ReadWriteLocalData.Controller
         private string tempDirectoryPath = Path.GetTempPath() + @"\ReadWriteLocalData";
         private const string tempLogPath = @"\Logs";
         private const string tempFileName = @"\log.txt";
+        private const string tempFileNameTemp = @"\TempLog.txt";
 
         public ObservableCollection<Log> Logs { get; set; }
 
@@ -29,26 +30,94 @@ namespace ReadWriteLocalData.Controller
             Logs = new ObservableCollection<Log>();
         }
 
+        // TODO Specify a drive other than SSD to avoid damage
+        // Maybe let the user decide where to log
+        // https://superuser.com/a/848291
+
         public void Write(Log _NewLog)
         {
             File.AppendAllText(tempDirectoryPath + tempLogPath + tempFileName, JsonConvert.SerializeObject(_NewLog) + Environment.NewLine);
             Logs.Add(_NewLog);
         }
 
-        public void Read()
+        public void ReadWithStream()
+        {
+            if (File.Exists(tempDirectoryPath + tempLogPath + tempFileName))
+            {
+                bool caughtException = false;
+
+                using (StreamReader sr = new StreamReader(tempDirectoryPath + tempLogPath + tempFileName))
+                {
+                    using (var sw = new StreamWriter(tempDirectoryPath + tempLogPath + tempFileNameTemp))
+                    {
+                        string line;
+
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            try
+                            {
+                                Logs.Add(JsonConvert.DeserializeObject<Log>(line));
+                                sw.WriteLine(line);
+                            }
+                            catch (Exception e)
+                            {
+                                caughtException = true;
+                            }
+                        }
+                    }
+                }
+
+                if (caughtException)
+                {
+                    File.Delete(tempDirectoryPath + tempLogPath + tempFileName);
+                    File.Move(tempDirectoryPath + tempLogPath + tempFileNameTemp, tempDirectoryPath + tempLogPath + tempFileName);
+                }
+                else
+                {
+                    File.Delete(tempDirectoryPath + tempLogPath + tempFileNameTemp);
+                }
+
+                if (Logs.Any())
+                    Log.HighestId = Logs.Max(e => e.LogId);
+            }
+        }
+
+        public void ReadWithFile()
         {
             if (File.Exists(tempDirectoryPath + tempLogPath + tempFileName))
             {
                 string[] str = File.ReadAllLines(tempDirectoryPath + tempLogPath + tempFileName);
+                bool caughtException = false;
 
-                for (int i = 0; i < str.Length; i++)
+                using (var sw = new StreamWriter(tempDirectoryPath + tempLogPath + tempFileNameTemp))
                 {
-                    Logs.Add(JsonConvert.DeserializeObject<Log>(str[i]));
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        try
+                        {
+                            Logs.Add(JsonConvert.DeserializeObject<Log>(str[i]));
+                            sw.WriteLine(str[i]);
+                        }
+                        catch (Exception e)
+                        {
+                            caughtException = true;
+                        }
+                    }
+                }
+
+                if (caughtException)
+                {
+                    File.Delete(tempDirectoryPath + tempLogPath + tempFileName);
+                    File.Move(tempDirectoryPath + tempLogPath + tempFileNameTemp, tempDirectoryPath + tempLogPath + tempFileName);
+                }
+                else
+                {
+                    File.Delete(tempDirectoryPath + tempLogPath + tempFileNameTemp);
                 }
             }
 
             if (Logs.Any())
-                Log.HighestId = Logs.Max(e => e.LogId);          
+                Log.HighestId = Logs.Max(e => e.LogId);
         }
     }
 }

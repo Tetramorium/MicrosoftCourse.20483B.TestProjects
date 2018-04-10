@@ -33,7 +33,7 @@ namespace ReadWriteLocalData
 
             this.DataContext = ldc;
 
-            ldc.Read();
+            ldc.ReadWithStream();
         }
 
         private void bt_LogComment_Click(object sender, RoutedEventArgs e)
