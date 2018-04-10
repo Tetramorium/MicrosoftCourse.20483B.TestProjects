@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ReadWriteLocalData"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="273.5">
     <Grid>
         <Button x:Name="bt_LogComment" Content="Log Comment" HorizontalAlignment="Left" Margin="73,389,0,0" VerticalAlignment="Top" Width="100" Click="bt_LogComment_Click"/>
-        <ListBox x:Name="lb_Logs" HorizontalAlignment="Left" Height="374" Margin="10,10,0,0" VerticalAlignment="Top" Width="244"/>
-
+        <ListBox x:Name="lb_Logs" HorizontalAlignment="Left" Height="374" Margin="10,10,0,0" VerticalAlignment="Top" Width="244" ItemsSource="{Binding Logs, diag:PresentationTraceSources.TraceLevel=High}" ItemTemplate="{StaticResource listBoxTemplate}" />
     </Grid>
 </Window>

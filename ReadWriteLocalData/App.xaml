@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ReadWriteLocalData"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate x:Key="listBoxTemplate">
+            <DockPanel Margin="3">
+                <TextBlock DockPanel.Dock="Left" Margin="5, 0, 10, 0" Text="{Binding Date}"/>
+                <TextBlock DockPanel.Dock="Right" Margin="5, 0, 5, 0" Text="{Binding Message}"/>
+            </DockPanel>
+        </DataTemplate>
     </Application.Resources>
 </Application>

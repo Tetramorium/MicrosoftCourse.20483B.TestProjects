@@ -1,4 +1,5 @@
 ﻿using ReadWriteLocalData.Controller;
+using ReadWriteLocalData.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,22 +29,16 @@ namespace ReadWriteLocalData
         {
             InitializeComponent();
 
-            DataContext = ldc;
-
             this.ldc = new LocalDataController();
 
-            ldc.Read();
+            this.DataContext = ldc;
 
-            this.lb_Logs.ItemsSource = ldc.Logs;
+            ldc.Read();
         }
 
         private void bt_LogComment_Click(object sender, RoutedEventArgs e)
         {
-            ldc.Write(DateTime.Now.ToString() + " - Test");
-
-            ldc.Read();
-
-            this.lb_Logs.ItemsSource = ldc.Logs;
+            ldc.Write(new Log("Test"));
         }
     }
 }
